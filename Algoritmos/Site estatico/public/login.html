@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="styles/login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="assets/images/beetech-icon.png" />
+</head>
+
+<body>
+  <div class="container-pai">
+    <header>
+      <div class="container">
+        <a href="index.html"><img src="assets/images/beetech.png" alt="logo_beetech" /></a>
+        <ul class="navbar">
+          <li><a href="index.html">Voltar para a página inicial</a></li>
+
+        </ul>
+      </div>
+    </header>
+    <div class="main">
+      <div class="container">
+        <img src="assets/images/beetech-logo.png" alt="" id="img_logo" />
+        <img src="assets/images/Group-2.png" alt="" id="img_fundo" />
+
+        <h3>LOGIN</h3>
+        <div class="campos">
+          <div class="dados">
+            <div class="caixa_input">
+              <h3>Usuário:</h3>
+              <input type="text" placeholder="Ex: beetech@sptech.school" id="input_usuario" />
+            </div>
+
+            <div class="caixaInput">
+              <h3>Senha:</h3>
+              <input type="password" placeholder="Ex: Beetech#2025" id="input_senha" />
+            </div>
+          </div>
+        </div>
+        <div class="div_button">
+          <button onclick="logar()">Logar</button>
+          <p id="div_mensagem"></p>
+          <a href="tela-de-cadastro.html"><label for="">Cadastro</label></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  // vetor de um usuario já registrado
+  usuarioRegistrado = ["beetech@sptech.school", "Beetech#2025"];
+  // dentro do vetor [0-1]
+  //[0] usuario/email
+  //[1] senha
+
+  contTentativas = 3;
+
+  function logar() {
+    var usuario = input_usuario.value;
+    var senha = input_senha.value;
+
+    if (contTentativas > 0) {
+
+      if (usuarioRegistrado.includes(usuario)) {
+        if (usuarioRegistrado[1] == senha) {
+          div_mensagem.innerHTML = `<b style="color:green">Login realizado com sucesso!</b>`;
+          window.location.href = "dashboardGeral.html";
+        } else {
+          contTentativas--;
+          if (contTentativas > 0) {
+            div_mensagem.innerHTML = `<b style="color:red">Senha inválida, tentativa(s) restante(s): ${contTentativas}</b>`;
+          } else {
+            div_mensagem.innerHTML = `<b style="color:red">Senha inválida, login bloqueado!</b>`;
+          }
+        }
+      } else {
+        div_mensagem.innerHTML = `<b style="color:red">Usuário inválido.</b>`;
+      }
+    } else {
+      div_mensagem.innerHTML = `<b style="color:red">Login bloqueado!</b>`;
+    }
+  }
+</script>

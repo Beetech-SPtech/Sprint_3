@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    display: flex;
+    justify-content: center;
+    background-color: #FEF7E6;
+    font-family: 'Montserrat';
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    /* align-items: center; */
+}
+body a{
+    font-weight: bold;
+}
+
+header{
+    width: 100%;
+}
+header .container{
+    display: flex;
+    background-color: #DFCD9E;
+    justify-content: space-between;
+    padding: 0 0px;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+}
+
+header .container .navbar{
+    display: flex;
+
+}
+
+header .container .navbar li{
+    list-style: none;
+    margin: 0 25px;
+    font-size: 22px;
+    font-weight: Semibold;
+}
+header .container .navbar li a{
+    text-decoration: none;
+    color: black;
+    
+}
+header .container .navbar li a:hover{
+    text-decoration:underline;
+}
+
+
+.container-pai{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main .container{
+    background-image: url(../assets/images/Group-2.png);
+    background-size: 589px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    
+}
+.main img{
+    height: 139px;
+    width: 130px;
+    margin-top: 30px;
+}
+
+
+.main .container{
+   
+    z-index: 2;
+    
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 850px;
+    background-color: white;
+    align-items: center;
+    border-radius: 15px;
+    margin-top: 30px;
+    background-image: images/Group-2png;
+ margin-bottom: 30px;
+    
+}
+.main .campos{
+    display: flex;
+    
+    flex-direction: row;
+    align-items: flex-start;
+    p{
+        color: red;
+        font-size: 11px;
+    }
+}
+.main .campos .cabecalho{
+    font-size: 15px;
+    color: black;
+      font-weight: bold;
+        margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+.main input{
+    border: 1px solid #aaaaaa;
+    background-color: transparent;
+    border-radius: 10px;
+    border-width: 1px;
+    height: 50px;
+    width: 300px;
+    font-size: 20px;
+    outline: 0;
+    text-indent: 15px;
+}
+
+
+
+button {
+  background-color: black;
+  color: #fee600;
+  font-size: 20px;
+  border-radius: 10px;
+  height: 40px;
+  width: 400px;
+  border-style: solid;
+  z-index: 2;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.div_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #fee600;
+  color: black;
+  transition: 0.5s;
+}
+
+.main .caixaInput{
+    margin: 8px;
+    gap: 10px;
+
+}
+
+.main .container h3{
+    font-weight: bold;
+    color: black;
+}
+.main a{
+    text-decoration: underline;
+    cursor: pointer;
+    color: black;
+    
+}

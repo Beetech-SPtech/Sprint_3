@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans";
+}
+
+body {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* LEFT BAR */
+.left-bar {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  /* padding: 10px; */
+  background-color: #f9f0d9;
+}
+.left-bar img {
+  height: 120px;
+}
+.left-bar p {
+  padding: 10px;
+  text-align: center;
+}
+.left-bar button {
+  width: 120px;
+  height: 50px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border: none;
+  font-size: 18px;
+}
+/* LEFT BAR  */
+
+/* CONTAINER TOP  */
+
+.container-main {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  align-items: center;
+}
+
+.container-main .container-top {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  height: 20%;
+  font-size: 18px;
+}
+.container-main .container-top .container-metricas {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 80%;
+  font-size: 18px;
+  justify-content: space-between;
+}
+/* CONTAINER TOP */
+/* METRICAS */
+.box-1 {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(0deg, #ff1919, #ffc1c1);
+  justify-content: space-around;
+      color: white;
+}
+.box-2 {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(0deg, #ffae14, #ffed91);
+  justify-content: space-around;
+      color: white;
+}
+.box-3 {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(0deg, #4da659, #85ff83);
+  justify-content: space-around;
+      color: white;
+}
+.box-4 {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(0deg, #ffae14, #ffed91);
+  justify-content: space-around;
+      color: white;
+}
+.box-5 {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-image: linear-gradient(0deg, #ff1919, #ffc1c1);
+  justify-content: space-around;
+      color: white;
+}
+/* METRICAS */
+/* CAIXA DAS COLMEIAS */
+.container-main .container-dados {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.container-main .container-colmeias {
+  display: flex;
+  flex-direction: column;
+  background-color: #d9d9d9;
+  width: 40%;
+  height: 80%;
+  border-radius: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0px;
+}
+.container-main .container-colmeias a {
+  text-decoration: none;
+  color: black;
+}
+.container-main .container-colmeias img {
+  height: 70px;
+
+  margin: 10px 0;
+}
+
+.container-main .container-dados .container-colmeias .linha-1 {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 170px;
+}
+.container-main .container-dados .container-colmeias .linha-2 {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 170px;
+  flex-direction: row;
+}
+.container-main .container-dados .container-colmeias .colmeia2 {
+  height: 190px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+
+  background-image: url(../assets/images/hexagono-vermelho.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.container-main .container-dados .container-colmeias .colmeia1 {
+  height: 190px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+
+  background-image: url(../assets/images/hexagono-amarelo.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.container-main .container-dados .container-colmeias .colmeia3 {
+  height: 190px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+
+  background-image: url(../assets/images/hexagono-verde.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container-main .container-dados .container-colmeias .colmeia4 {
+  height: 190px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+
+  background-image: url(../assets/images/hexagono-verde.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  align-self: flex-start;
+}
+/* GRAFICOS */
+
+.graficos {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 80%;
+  align-items: center;
+  /* justify-content: ; */
+  gap: 50px;
+}
+.graficos .grafico-1 {
+  padding: 0px;
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.graficos .kpis {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+.graficos .kpis .botoes {
+  display: flex;
+  justify-content: space-evenly;
+  color: #ffffff;
+}
+
+.graficos .kpis .botoes button {
+  width: 23%;
+  cursor: pointer;
+  border-style: solid;
+  color: #ffffff;
+}
+#kpi1 {
+  background-color: #000000;
+
+}
+
+#kpi2 {
+  background-color: #000000;
+  border: solid red 4px;
+}
+
+#kpi3 {
+  background-color: #000000;
+  border: solid yellow 4px;
+}
+#kpi4 {
+  background-color: #000000;
+  border: solid green 4px;
+}
+
+/* .graficos .grafico-2 {
+  padding: 0px;
+  height: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
