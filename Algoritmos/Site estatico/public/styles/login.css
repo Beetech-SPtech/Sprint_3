@@ -1,42 +1,59 @@
-
 /* ============COMECO NAVBAR========= */
+.ajuda {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px 30px;
+  background-color: #f6c84b;
+  margin: 0 20px;
+  font-weight: bold;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* text-decoration: none; */
+  height: 20px;
+  transition: ease 0.3s;
+}
+.ajuda a {
+  text-decoration: none;
+  color: black;
+}
 
-header{
-    width: 100%;
+.ajuda:hover {
+  height: 30px;
 }
-header .container{
-    display: flex;
-    background-color: #DFCD9E;
-    justify-content: space-between;
-    padding: 0 0px;
-    align-items: center;
-    height: 50px;
-    width: 100%;
+header {
+  width: 100%;
 }
-
-header .container .navbar{
-    display: flex;
-
+header .container {
+  display: flex;
+  background-color: #dfcd9e;
+  justify-content: space-between;
+  padding: 0 0px;
+  align-items: center;
+  height: 50px;
+  width: 100%;
 }
 
-header .container .navbar li{
-    list-style: none;
-    margin: 0 25px;
-    font-size: 22px;
-    font-weight: Semibold;
+header .container .navbar {
+  display: flex;
 }
-header .container .navbar li a{
-    text-decoration: none;
-    color: black;
-    
+
+header .container .navbar li {
+  list-style: none;
+  margin: 0 25px;
+  font-size: 22px;
+  font-weight: Semibold;
 }
-header .container .navbar li a:hover{
-    text-decoration:underline;
+header .container .navbar li a {
+  text-decoration: none;
+  color: black;
+}
+header .container .navbar li a:hover {
+  text-decoration: underline;
 }
 
 /* ============== FIM NAVBAR========= */
-
-
 
 /* BODY  */
 
@@ -50,8 +67,7 @@ body {
   flex-direction: column;
 }
 
-
-.container-pai{
+.container-pai {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -145,4 +161,3 @@ button:hover {
   color: black;
   transition: 0.5s;
 }
-

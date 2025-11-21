@@ -4,6 +4,29 @@
   padding: 0;
   font-family: "Open Sans";
 }
+.ajuda {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px 30px;
+  background-color: #f6c84b;
+  margin: 0 20px;
+  font-weight: bold;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* text-decoration: none; */
+  height: 20px;
+  transition: ease 0.3s;
+}
+.ajuda a {
+  text-decoration: none;
+  color: black;
+}
+
+.ajuda:hover {
+  height: 30px;
+}
 
 body {
   display: flex;
@@ -65,7 +88,7 @@ body {
   width: 80%;
   font-size: 18px;
 }
-container-main .container-top h1{
+container-main .container-top h1 {
   font-size: 32px;
 }
 /* CONTAINER TOP */
@@ -78,7 +101,9 @@ container-main .container-top h1{
   text-align: center;
   background-image: linear-gradient(0deg, #ff1919, #ffc1c1);
   justify-content: space-around;
-      color: white;
+  color: white;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 .box-2 {
   width: 20%;
@@ -88,7 +113,7 @@ container-main .container-top h1{
   text-align: center;
   background-image: linear-gradient(0deg, #ffae14, #ffed91);
   justify-content: space-around;
-      color: white;
+  color: white;
 }
 .box-3 {
   width: 20%;
@@ -98,7 +123,7 @@ container-main .container-top h1{
   text-align: center;
   background-image: linear-gradient(0deg, #4da659, #85ff83);
   justify-content: space-around;
-      color: white;
+  color: white;
 }
 .box-4 {
   width: 20%;
@@ -108,7 +133,7 @@ container-main .container-top h1{
   text-align: center;
   background-image: linear-gradient(0deg, #ffae14, #ffed91);
   justify-content: space-around;
-      color: white;
+  color: white;
 }
 .box-5 {
   width: 20%;
@@ -118,7 +143,9 @@ container-main .container-top h1{
   text-align: center;
   background-image: linear-gradient(0deg, #ff1919, #ffc1c1);
   justify-content: space-around;
-      color: white;
+  color: white;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 /* METRICAS */
 /* registros */

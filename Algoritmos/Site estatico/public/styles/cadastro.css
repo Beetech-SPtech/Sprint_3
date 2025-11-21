@@ -1,123 +1,137 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-*{
-    margin: 0px;
-    padding: 0px;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0px;
+  padding: 0px;
 }
-body{
-    display: flex;
-    justify-content: center;
-    background-color: #FEF7E6;
-    font-family: 'Montserrat';
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
-    /* align-items: center; */
+.ajuda {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px 30px;
+  background-color: #f6c84b;
+  margin: 0 20px;
+  font-weight: bold;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* text-decoration: none; */
+  height: 20px;
+  transition: ease 0.3s;
 }
-body a{
-    font-weight: bold;
-}
-
-header{
-    width: 100%;
-}
-header .container{
-    display: flex;
-    background-color: #DFCD9E;
-    justify-content: space-between;
-    padding: 0 0px;
-    align-items: center;
-    height: 50px;
-    width: 100%;
+.ajuda a {
+  text-decoration: none;
+  color: black;
 }
 
-header .container .navbar{
-    display: flex;
-
+.ajuda:hover {
+  height: 30px;
+}
+body {
+  display: flex;
+  justify-content: center;
+  background-color: #fef7e6;
+  font-family: "Montserrat";
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  /* align-items: center; */
+}
+body a {
+  font-weight: bold;
 }
 
-header .container .navbar li{
-    list-style: none;
-    margin: 0 25px;
-    font-size: 22px;
-    font-weight: Semibold;
+header {
+  width: 100%;
 }
-header .container .navbar li a{
-    text-decoration: none;
-    color: black;
-    
-}
-header .container .navbar li a:hover{
-    text-decoration:underline;
+header .container {
+  display: flex;
+  background-color: #dfcd9e;
+  justify-content: space-between;
+  padding: 0 0px;
+  align-items: center;
+  height: 50px;
+  width: 100%;
 }
 
-
-.container-pai{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.main .container{
-    background-image: url(../assets/images/Group-2.png);
-    background-size: 589px;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    
-}
-.main img{
-    height: 139px;
-    width: 130px;
-    margin-top: 30px;
+header .container .navbar {
+  display: flex;
 }
 
+header .container .navbar li {
+  list-style: none;
+  margin: 0 25px;
+  font-size: 22px;
+  font-weight: Semibold;
+}
+header .container .navbar li a {
+  text-decoration: none;
+  color: black;
+}
+header .container .navbar li a:hover {
+  text-decoration: underline;
+}
 
-.main .container{
-   
-    z-index: 2;
-    
-    display: flex;
-    flex-direction: column;
-    width: 800px;
-    height: 850px;
-    background-color: white;
-    align-items: center;
-    border-radius: 15px;
-    margin-top: 30px;
-    background-image: images/Group-2png;
- margin-bottom: 30px;
-    
+.container-pai {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.main .campos{
-    display: flex;
-    
-    flex-direction: row;
-    align-items: flex-start;
-    p{
-        color: red;
-        font-size: 11px;
-    }
+.main .container {
+  background-image: url(../assets/images/Group-2.png);
+  background-size: 589px;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
-.main .campos .cabecalho{
-    font-size: 15px;
-    color: black;
-      font-weight: bold;
-        margin-block-start: 1em;
+.main img {
+  height: 139px;
+  width: 130px;
+  margin-top: 30px;
+}
+
+.main .container {
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  height: 850px;
+  background-color: white;
+  align-items: center;
+  border-radius: 15px;
+  margin-top: 30px;
+  background-image: images/Group-2png;
+  margin-bottom: 30px;
+}
+.main .campos {
+  display: flex;
+
+  flex-direction: row;
+  align-items: flex-start;
+  p {
+    color: red;
+    font-size: 11px;
+  }
+}
+.main .campos .cabecalho {
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+  margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
 }
-.main input{
-    border: 1px solid #aaaaaa;
-    background-color: transparent;
-    border-radius: 10px;
-    border-width: 1px;
-    height: 50px;
-    width: 300px;
-    font-size: 20px;
-    outline: 0;
-    text-indent: 15px;
+.main input {
+  border: 1px solid #aaaaaa;
+  background-color: transparent;
+  border-radius: 10px;
+  border-width: 1px;
+  height: 50px;
+  width: 300px;
+  font-size: 20px;
+  outline: 0;
+  text-indent: 15px;
 }
-
-
 
 button {
   background-color: black;
@@ -144,19 +158,17 @@ button:hover {
   transition: 0.5s;
 }
 
-.main .caixaInput{
-    margin: 8px;
-    gap: 10px;
-
+.main .caixaInput {
+  margin: 8px;
+  gap: 10px;
 }
 
-.main .container h3{
-    font-weight: bold;
-    color: black;
+.main .container h3 {
+  font-weight: bold;
+  color: black;
 }
-.main a{
-    text-decoration: underline;
-    cursor: pointer;
-    color: black;
-    
+.main a {
+  text-decoration: underline;
+  cursor: pointer;
+  color: black;
 }
