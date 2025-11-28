@@ -304,6 +304,7 @@ body {
   background-color: white;
   color: black;
   font-weight: bold;
+  border: solid black 8px;
 }
 
 #kpi2 {
@@ -311,7 +312,7 @@ body {
   color: black;
   font-weight: bold;
   border: solid red 8px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
 }
 
 #kpi3 {
@@ -319,14 +320,14 @@ body {
   color: black;
   font-weight: bold;
   border: solid yellow 8px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
 }
 #kpi4 {
   background-color: white;
   color: black;
   font-weight: bold;
   border: solid green 8px;
-  border-radius: 15px;
+  /* border-radius: 15px; */
 }
 
 /* .graficos .grafico-2 {

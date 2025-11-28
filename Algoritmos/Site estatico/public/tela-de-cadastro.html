@@ -41,11 +41,11 @@
                         <input type="text" placeholder="Ex: beetech@sptech.school" id="input_email" oninput="cadastrarEmail()" />
                         <p id="erro_email"></p>
                     </div>
-                    <div class="caixaInput">
+                    <!-- <div class="caixaInput">
                         <p class="cabecalho">Data de nascimento:</p>
                         <input type="text" placeholder="Ex: 21/01/2007" id="input_nascimento" oninput="cadastrarNascimento()" />
                         <p id="erro_nascimento"></p>
-                    </div>
+                    </div> -->
                     <div class="caixaInput">
                         <p class="cabecalho">Confirmar senha:</p>
                         <input type="password" placeholder="Ex: Beetech#2025" id="input_confirmarsenha"
@@ -55,17 +55,17 @@
                 </div>
                 <div class="ladoDireito">
                     <div class="caixaInput">
-                        <p class="cabecalho">Sobrenome:</p>
-                        <input type="text" placeholder="Ex: Tech" id="input_sobrenome" oninput="cadastrarSobrenome()" />
+                        <p class="cabecalho">CPF:</p>
+                        <input type="number" placeholder="Ex: Tech" id="input_cpf" oninput="cadastrarCpf()" />
                         <p id="erro_sobrenome"></p>
                     </div>
     
     
-                    <div class="caixaInput">
+                    <!-- <div class="caixaInput">
                         <p class="cabecalho">Telefone:</p>
                         <input type="text" placeholder="Ex: 1191234123" id="input_telefone" oninput="cadastrarTelefone()" />
                         <p id="erro_telefone"></p>
-                    </div>
+                    </div> -->
     
                     <div class="caixaInput">
                         <p class="cabecalho">Senha:</p>
@@ -126,8 +126,8 @@
             confirmacaoCadastro1 = 'A'
         }
     }
-    function cadastrarSobrenome() {
-        var sobrenome = input_sobrenome.value;
+    function cadastrarCpf() {
+        var sobrenome = input_cpf.value;
         if (
             sobrenome.includes("!") ||
             sobrenome.includes("@") ||

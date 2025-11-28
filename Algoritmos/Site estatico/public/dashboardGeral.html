@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="buscarTemperaturaColmeia2()">
   <div class="ajuda"><a href="">Precisa de ajuda?</a><i class="fas fa-headset"></i></div>
   <div class="left-bar">
     <img src="assets/images/beetech-logo.png" alt="" />
@@ -50,11 +50,15 @@
             <div class="colmeia2" id="colmeia2">
               <img src="assets/images/apiario.png" alt="" />
 
-              <p>
-                Colmeia 2 <br />
-                40°C <br />
-                Alerta
-              </p>
+            <div class="info-colmeia">
+                <p>Colmeia 2</p> <br />
+                <p id="p_tempColmeia2">34°C</p> <br />
+                <p>Ideal</p>
+              </div>
+
+
+
+              
             </div>
           </a>
           <a href="dashboardColmeia-1.html">
@@ -75,11 +79,11 @@
             <div class="colmeia3" id="colmeia3">
               <img src="assets/images/apiario.png" alt="" />
 
-              <p>
-                Colmeia 3 <br />
-                34°C <br />
-                Ideal
-              </p>
+              <div class="info-colmeia">
+                <p>Colmeia 3</p> <br />
+                <p>34°C</p> <br />
+                <p>Ideal</p>
+              </div>
             </div>
           </a>
           <a href="">
@@ -209,5 +213,22 @@
     colmeia2.style.display = 'none'
     colmeia3.style.display = 'flex'
     colmeia4.style.display = 'flex'
+  }
+
+
+
+  function buscarTemperaturaColmeia2(){
+    fetch('/dashboardGeral/buscarTemperaturaAtualColmeia2').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].valorTemp)
+          p_tempColmeia2.innerHTML  = `${resposta[0].valorTemp}ºC`
+          setTimeout(() => {
+            buscarTemperaturaColmeia2()
+          }, 1000);
+        })
+
+      }
+    })
   }
 </script>
