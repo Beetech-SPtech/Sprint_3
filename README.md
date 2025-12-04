@@ -1,6 +1,6 @@
-# Sprint 2 – Projeto Beetech 🐝
+# Sprint 3 – Projeto Beetech 🐝
 
-Este repositório contém o desenvolvimento da **Sprint 2** do nosso projeto.
+Este repositório contém o desenvolvimento da **Sprint 3** do nosso projeto.
 
 
 ## Sobre Nós 👨🏽‍💻
