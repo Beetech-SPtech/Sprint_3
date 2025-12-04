@@ -5,7 +5,7 @@ Este repositório contém o desenvolvimento da **Sprint 3** do nosso projeto.
 
 ## Sobre Nós 👨🏽‍💻
 
-Somos o **Grupo 11** da Sprint 2. A equipe é composta por:
+Somos o **Grupo 11** da Sprint 3. A equipe é composta por:
 
 - **Davi Vital** – [GitHub](https://github.com/DaviSPTECH)  
 - **Jorge Luiz** – [GitHub](https://github.com/Jorglcs)  
