@@ -16,75 +16,41 @@ CREATE TABLE empresa (
     responsavel VARCHAR(40),
     nomeEmpresa VARCHAR(150),
     cnpj CHAR(18) UNIQUE,
-    telFixo CHAR (13),
-    telCelular CHAR(14),
+    telFixo CHAR (13) UNIQUE,
+    telCelular CHAR(14) UNIQUE,
     email VARCHAR (45)
 );
 
 INSERT INTO empresa (responsavel, nomeEmpresa, cnpj, telFixo, telCelular, email) VALUES
-('Jorge Weasley', 'Gemialidade Weasley', '00.000.000/0001-00', '(11)1111-1111', '(11)91111-1111','Jorge.Wealey@outlook.com'),
-('Harry Potter', 'PotterChad','11.111.111/0001-00', '(11)2222-2222', '(11)92222-2222','PotterChad@gmail.com'),
-('Hermione Granger', 'Sangue Ruim', '22.222.222/0001-00', '(11)4242-5640', '(11)94002-8922', 'Granger.Hermione@Yahoo.com');
+('Jorge Weasley', 'Beemovie', '00.000.000/0001-00', '(11)1111-1111', '(11)91111-1111','Jorge.Wealey@outlook.com'),
+('Harry Plotter', 'BeeQueen','11.111.111/0001-00', '(11)2222-2222', '(11)92222-2222','PlotterChad@gmail.com'),
+('Hermione Granja', 'BeeToBee', '22.222.222/0001-00', '(11)4242-5640', '(11)94002-8922', 'Granger.Hermione@Yahoo.com');
 
 select * from empresa;
 
 CREATE TABLE usuarios (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
-    sobrenome VARCHAR(50),
     email VARCHAR(70),
-    dtNasc DATE,
-    telCelular char(14),
     senha VARCHAR(60),
     dtCadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
     nivelUser CHAR(3),
     fkEmpresa INT,
 		CONSTRAINT fkDaEmpresa
 			FOREIGN KEY (fkEmpresa)
-				REFERENCES empresa(idEmpresa)
+				REFERENCES empresa(idEmpresa),
+		CONSTRAINT chk_nivel check(nivelUser in('SUP', 'ADM'))
 );
 
-INSERT INTO usuarios (nome, sobrenome, email, dtNasc, telCelular, dtCadastro, nivelUser, fkEmpresa) VALUES
-('Gandalf','O Branco', 'GandalfMago@hotmail.com', '2001-02-05', '(11)93333-3333', default, 3, 1),
-('Bilbo', 'Bolseiro', 'BilboHobbit@sptech.school', '2004-03-27', '(11)94444-4444', default, 2, 2),
-('Aragorn', 'Rei de Gondor', 'AragornBrabo@icloud.com', '2001-02-12', '(11)95555-5555', default, 1,3);
+INSERT INTO usuarios (nome, email,dtCadastro, nivelUser, fkEmpresa) VALUES
+('Gandalf','GandalfMago@hotmail.com', default, 'SUP', 1),
+('Bilbo', 'BilboHobbit@sptech.school', default, 'SUP', 2),
+('Aragorn', 'AragornBrabo@icloud.com', default, 'ADM',3);
 
 select * from usuarios;
 
-CREATE TABLE enderecos(
-	idEnderecos INT PRIMARY KEY AUTO_INCREMENT,
-	logradouro VARCHAR(90),
-    numLogradouro INT,
-    cidade VARCHAR (80),
-    UF CHAR (2),
-    cep CHAR(9),
-    bairro VARCHAR(40),
-    complemento VARCHAR (50),
-    statusEndereco VARCHAR(10),
-    fkEmpresa INT,
-		CONSTRAINT fkDoEnderecoEmpresa
-			FOREIGN KEY (fkEmpresa)
-				REFERENCES empresa(idEmpresa),
-		CONSTRAINT chkStatus 
-			CHECK(statusEndereco IN
-				('Livre', 'Ocupado'))
-);
-
-INSERT INTO enderecos (logradouro, numLogradouro, cidade, UF, cep, bairro, statusEndereco, fkEmpresa) VALUES
-('Rua Altobeni', 737, 'SãoPaulo', 'SP', '08421-130', 'Vila Cosmopolita', 'Livre', 1),
-('Rua Mario João Bampa', 71, 'Jundia', 'SP', '08431-120', 'Vila Comercial', 'Ocupado', 2),
-('Rua Wilson Fernando S de Carvalho', 480, 'São Paulo', 'SP', '08411-320', 'Barro Branco', 'Livre', 3);
-
-select * from enderecos;
-
 CREATE TABLE colmeia (
 	idColmeia INT,
-	qtdNinho INT,
-	qtdMelgueira INT,
-    qtdRainha INT,
-    largura FLOAT,
-    altura FLOAT,
-    comprimento FLOAT,
     fkEmpresa INT,
 		CONSTRAINT fkDaColmeiaEmpresa
 			FOREIGN KEY (fkEmpresa)
@@ -92,36 +58,16 @@ CREATE TABLE colmeia (
 	PRIMARY KEY (idColmeia, fkEmpresa)
 ); 
 
-INSERT INTO colmeia (idColmeia, fkEmpresa, qtdNinho, qtdMelgueira, qtdRainha, largura, altura, comprimento) VALUES
-(1,1, 20, 30, 60, 13.2, 13.2, 10.5),
-(1,2, 30, 20, 70, 20.4, 17.8, 16.5),
-(1,3, 60, 24, 50, 8.6, 12.3, 6.4);
+INSERT INTO colmeia (idColmeia, fkEmpresa) VALUES
+(1,1),
+(1,2),
+(1,3);
 
 select * from colmeia;
 
-CREATE TABLE producaoTotal (
-	idProducao INT PRIMARY KEY auto_increment,
-	melKg DECIMAL (7,2),
-    valorMel DECIMAL (7,2),
-    dtCriacao DATETIME,
-    fkEmpresa INT,
-    fkColmeia INT,
-    CONSTRAINT fkColmeiaProducao
-		FOREIGN KEY (fkColmeia, fkEmpresa)
-			REFERENCES colmeia(idColmeia, fkEmpresa)
-);
-
-INSERT INTO producaoTotal (melKg, valorMel, dtCriacao, fkColmeia, fkEmpresa) VALUES
-(12.50, 320.00, default, 1, 1),
-(15.80, 400.00, default, 1, 2),
-(10.25, 270.00, default, 1, 3);
-
-select * from producaoTotal;
-
 CREATE TABLE sensores (
-	idSensor INT PRIMARY KEY,
-    nomeSensor VARCHAR(50),
-    lugar VARCHAR(45),
+	idSensores INT PRIMARY KEY auto_increment,
+    numeroSensor INT,
     descricao VARCHAR(100),
     statusSensor VARCHAR(40),
     fkEmpresa INT, 
@@ -138,21 +84,21 @@ CREATE TABLE sensores (
 			REFERENCES colmeia(idColmeia, fkEmpresa)
 );
 
-INSERT INTO sensores (idSensor, nomeSensor, lugar, descricao, statusSensor, fkColmeia, fkEmpresa) VALUES 
-(1, 'Sensor1', 'Ninho', 'Mede a temperatura interna da colmeia', 'Ativo', 1, 1),
-(2, 'Sensor2', 'Melgueira', 'Mede a temperatura interna da colmeia', 'Ativo', 1, 2),
-(3, 'Sensor3', 'Base', 'Mede a temperatura interna da colmeia', 'Inativo', 1, 3);
+INSERT INTO sensores (idSensores, numeroSensor, descricao, statusSensor, fkColmeia, fkEmpresa) VALUES 
+(1, 1, 'Ninho', 'Ativo', 1, 1),
+(2, 1, 'Ninho2', 'Ativo', 1, 2),
+(3, 2, 'Ninho4', 'Inativo', 1, 3);
 
 select * from sensores;
 
 CREATE TABLE registroSensor(
 	idREgistroSensor INT PRIMARY KEY AUTO_INCREMENT,
-	valorTemp DECIMAL (4,2),
+	valorTemp DECIMAL,
     dtTemp DATETIME DEFAULT CURRENT_TIMESTAMP,
     fkSensores INT,
 		CONSTRAINT fkDoSensor
 			FOREIGN KEY (fkSensores)
-				REFERENCES sensores(idSensor)
+				REFERENCES sensores(idSensores)
 );
 
 INSERT INTO registroSensor (valorTemp, dtTemp, fkSensores) VALUES
@@ -217,5 +163,105 @@ select sensores.nomeSensor as 'Nome do Sensor',
        registroSensor.valorTemp as 'Valor da Temperatura'
        from sensores join registroSensor
        on idSensor = fkSensores;
-       
-drop database Beetech;
+
+
+/*TOTAL DE COLMEIAS REGISTRADAS*/
+CREATE VIEW total_colmeias AS SELECT COUNT(*) AS totalColmeias
+FROM colmeia;
+
+select * from total_colmeias;
+
+/*COLMEIAS EM ALERTA*/
+CREATE VIEW colmeias_alerta AS SELECT COUNT(DISTINCT c.idColmeia) AS colmeiasAlerta
+FROM colmeia c
+JOIN sensores s ON s.fkColmeia = c.idColmeia
+JOIN registroSensor r ON r.fkSensores = s.idSensores
+WHERE r.valorTemp < 30
+   OR r.valorTemp > 39;
+   
+select * from colmeias_alerta;
+
+/*COLMEIAS PREOCUPANTES*/
+CREATE VIEW colmeias_preocupantes AS SELECT COUNT(DISTINCT c.idColmeia) AS colmeiasPreocupante
+FROM colmeia c
+JOIN sensores s ON s.fkColmeia = c.idColmeia
+JOIN registroSensor r ON r.fkSensores = s.idSensores
+WHERE 
+(
+    r.valorTemp >= 30 AND r.valorTemp < 33
+    OR
+    r.valorTemp > 36 AND r.valorTemp <= 39
+);
+
+select * from colmeias_preocupantes;
+
+/*COLMEIAS EM ESTADO IDEAL*/
+
+CREATE VIEW colmeias_ideal AS SELECT COUNT(DISTINCT c.idColmeia) AS colmeiasIdeal
+FROM colmeia c
+JOIN sensores s ON s.fkColmeia = c.idColmeia
+JOIN registroSensor r ON r.fkSensores = s.idSensores
+WHERE r.valorTemp BETWEEN 33 AND 36;
+
+select * from colmeias_ideal;
+
+/*ALERTAS DA SEMANA*/
+
+CREATE VIEW alertas_semana AS SELECT 
+  DAYNAME(r.dtTemp) AS dia,
+  COUNT(*) AS totalAlertas
+FROM registroSensor r
+JOIN sensores s ON r.fkSensores = s.idSensores
+WHERE 
+  (r.valorTemp < 30 OR r.valorTemp > 39)
+  AND r.dtTemp >= CURDATE() - INTERVAL 7 DAY
+GROUP BY dia
+ORDER BY r.dtTemp;
+
+select * from alertas_semana;
+
+/*STATUS DE CADA COLMEIA*/
+
+CREATE VIEW status_colmeias AS SELECT 
+  c.idColmeia,
+  r.valorTemp,
+
+  CASE
+    WHEN r.valorTemp < 30 OR r.valorTemp > 39 THEN 'ALERTA'
+    WHEN (r.valorTemp >= 30 AND r.valorTemp < 33)
+      OR (r.valorTemp > 36 AND r.valorTemp <= 39) THEN 'PREOCUPANTE'
+    WHEN r.valorTemp BETWEEN 33 AND 36 THEN 'IDEAL'
+  END AS statusColmeia
+
+FROM colmeia c
+JOIN sensores s ON s.fkColmeia = c.idColmeia
+JOIN registroSensor r ON r.fkSensores = s.idSensores;
+
+select * from status_colmeias;
+
+/*ÚLTIMO REGISTRO DE CADA COLMEIA*/
+
+CREATE VIEW ultimo_registro AS SELECT 
+  c.idColmeia,
+  r.valorTemp,
+
+  CASE
+    WHEN r.valorTemp < 30 OR r.valorTemp > 39 THEN 'ALERTA'
+    WHEN (r.valorTemp >= 30 AND r.valorTemp < 33)
+      OR (r.valorTemp > 36 AND r.valorTemp <= 39) THEN 'PREOCUPANTE'
+    WHEN r.valorTemp BETWEEN 33 AND 36 THEN 'IDEAL'
+  END AS statusColmeia
+
+FROM colmeia c
+JOIN sensores s ON s.fkColmeia = c.idColmeia
+JOIN registroSensor r ON r.fkSensores = s.idSensores
+WHERE r.dtTemp = (
+    SELECT MAX(r2.dtTemp)
+    FROM registroSensor r2
+    WHERE r2.fkSensores = s.idSensores
+);
+
+select * from ultimo_registro;
+
+select * from registroSensor
+where data >= DATEADD(Minute, -15, GETDATE());
