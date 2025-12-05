@@ -287,3 +287,15 @@ WHERE r.dtTemp >= NOW() - INTERVAL 15 MINUTE
 GROUP BY 
     s.numeroSensor,
     DATE_FORMAT(r.dtTemp, '%Y-%m-%d %H:%i');
+
+CREATE VIEW alerta_semana_especifica as SELECT 
+    s.numeroSensor,
+    DAYNAME(r.dtTemp) AS diaSemana,
+    COUNT(*) AS totalAlertas
+FROM registroSensor r
+JOIN sensores s ON r.fkSensores = s.idSensores
+WHERE 
+    (r.valorTemp < 30 OR r.valorTemp > 39)
+GROUP BY s.numeroSensor, DAYNAME(r.dtTemp)
+ORDER BY s.numeroSensor;
+
