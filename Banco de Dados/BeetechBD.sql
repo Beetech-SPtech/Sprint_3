@@ -33,6 +33,7 @@ CREATE TABLE usuarios (
 	nome VARCHAR(50),
     email VARCHAR(70),
     senha VARCHAR(60),
+    cpf CHAR(11),
     dtCadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
     nivelUser CHAR(3),
     fkEmpresa INT,
@@ -119,51 +120,6 @@ CREATE TABLE contato (
     cargo VARCHAR(40),
     comentario VARCHAR(500)
 );
-
-select responsavel as Responsavel,
-	   nomeEmpresa as NomeFantasia,
-       empresa.email as EmailContato,
-       usuarios.nome as NomeUsuario,
-       usuarios.sobrenome as Titulo,
-       usuarios.email as EmailUsuario
-       from empresa join usuarios
-       on idEmpresa = fkEmpresa;
-       
-select responsavel as Responsavel,
-	   nomeEmpresa as 'Nome Fantasia',
-       empresa.email as 'Email de Contato',
-       usuarios.nome as 'Nome Úsuario',
-       usuarios.sobrenome as Título,
-       usuarios.email as 'Email Úsuario', 
-       Case when responsavel = 'Jorge Weasley' then 'PotterHead né?' end as 'Fã'
-       from empresa join usuarios
-       on idEmpresa = fkEmpresa
-       where nomeEmpresa like 'G%';
-
-select responsavel as Responsavel,
-	   nomeEmpresa as 'Nome Fantasia',
-       empresa.email as 'Email Contato',
-       usuarios.nome as 'Nome do Usuario',
-       usuarios.sobrenome as Titulo,
-       usuarios.email as 'Email Usuario'
-       from empresa join usuarios
-       on idEmpresa = fkEmpresa
-       where nomeEmpresa like 'G%';
-
-select nomeEmpresa as 'Nome Fantasia',
-	   empresa.email as 'Email de Contato',
-       colmeia.qtdNinho as 'Quantidade de Ninhos',
-       colmeia.qtdRainha as 'Quantidade de Rainhas'
-       from empresa join colmeia
-	   on idEmpresa = fkEmpresa;
-
-select sensores.nomeSensor as 'Nome do Sensor',
-	   sensores.descricao as 'Descrição',
-       sensores.statusSensor as 'Status do Sensor',
-       registroSensor.valorTemp as 'Valor da Temperatura'
-       from sensores join registroSensor
-       on idSensor = fkSensores;
-
 
 /*TOTAL DE COLMEIAS REGISTRADAS*/
 CREATE VIEW total_colmeias AS SELECT COUNT(*) AS totalColmeias
@@ -264,4 +220,37 @@ WHERE r.dtTemp = (
 select * from ultimo_registro;
 
 select * from registroSensor
-where data >= DATEADD(Minute, -15, GETDATE());
+where data >= now() - interval 15 minute;
+
+/* ESPECIFICA */
+
+CREATE VIEW temp_atual as SELECT valorTemp AS temperaturaAtual
+FROM registroSensor
+WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE
+ORDER BY dtTemp DESC
+LIMIT 1;
+
+CREATE VIEW media_15 as SELECT ROUND(AVG(valorTemp), 1) AS media15min
+FROM registroSensor
+WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE;
+
+CREATE VIEW menor_15 as SELECT MIN(valorTemp) AS menorTemp15min
+FROM registroSensor
+WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE;
+
+CREATE VIEW maior_15 as SELECT MAX(valorTemp) AS maiorTemp15min
+FROM registroSensor
+WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE;
+
+CREATE VIEW total_15 as SELECT COUNT(*) AS totalAlertas15min
+FROM registroSensor
+WHERE (valorTemp < 30 OR valorTemp > 39)
+AND dtTemp >= NOW() - INTERVAL 15 MINUTE;
+
+CREATE VIEW minuto_minuto as SELECT 
+    DATE_FORMAT(dtTemp, '%H:%i') AS minuto,
+    ROUND(AVG(valorTemp), 1) AS temperaturaMedia
+FROM registroSensor
+WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE
+GROUP BY DATE_FORMAT(dtTemp, '%Y-%m-%d %H:%i')
+ORDER BY MIN(dtTemp);
