@@ -61,34 +61,31 @@ CREATE TABLE colmeia (
 
 INSERT INTO colmeia (idColmeia, fkEmpresa) VALUES
 (1,1),
-(1,2),
-(1,3);
+(2,1),
+(3,1);
 
 select * from colmeia;
 
 CREATE TABLE sensores (
-	idSensores INT PRIMARY KEY auto_increment,
+    idSensores INT PRIMARY KEY auto_increment,
     numeroSensor INT,
     descricao VARCHAR(100),
     statusSensor VARCHAR(40),
     fkEmpresa INT, 
-		CONSTRAINT fkDaCOmeiaEmpresa
-			FOREIGN KEY (fkEmpresa)
-				REFERENCES empresa(idEmpresa),
+        CONSTRAINT fkDaCOmeiaEmpresa
+            FOREIGN KEY (fkEmpresa)
+                REFERENCES empresa(idEmpresa),
     fkColmeia INT,
-		CONSTRAINT fkDaColmeia
-			FOREIGN KEY (fkColmeia, fkEmpresa)
-				REFERENCES colmeia(idColmeia, fkEMpresa),
-		CONSTRAINT checkStatusSensor check(statusSensor in('Ativo', 'Inativo')),
-	CONSTRAINT fkColmeiaProducaoEmpresa
-		FOREIGN KEY (fkColmeia, fkEmpresa)
-			REFERENCES colmeia(idColmeia, fkEmpresa)
+        CONSTRAINT fkDaColmeia
+            FOREIGN KEY (fkColmeia, fkEmpresa)
+                REFERENCES colmeia(idColmeia, fkEMpresa),
+        CONSTRAINT checkStatusSensor check(statusSensor in('Ativo', 'Inativo'))
 );
 
 INSERT INTO sensores (idSensores, numeroSensor, descricao, statusSensor, fkColmeia, fkEmpresa) VALUES 
 (1, 1, 'Ninho', 'Ativo', 1, 1),
-(2, 1, 'Ninho2', 'Ativo', 1, 2),
-(3, 2, 'Ninho4', 'Inativo', 1, 3);
+(2, 1, 'Ninho2', 'Ativo', 2, 1),
+(3, 2, 'Ninho4', 'Inativo', 3, 1);
 
 select * from sensores;
 
@@ -224,33 +221,69 @@ where data >= now() - interval 15 minute;
 
 /* ESPECIFICA */
 
-CREATE VIEW temp_atual as SELECT valorTemp AS temperaturaAtual
-FROM registroSensor
-WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE
-ORDER BY dtTemp DESC
-LIMIT 1;
+CREATE VIEW temp_atual AS 
+SELECT 
+    s.numeroSensor AS numeroSensor,
+    r.valorTemp AS temperaturaAtual
+FROM registroSensor r
+JOIN sensores s 
+  ON r.fkSensores = s.idSensores
+WHERE r.dtTemp >= NOW() - INTERVAL 15 MINUTE
+ORDER BY r.dtTemp DESC;
 
-CREATE VIEW media_15 as SELECT ROUND(AVG(valorTemp), 1) AS media15min
-FROM registroSensor
-WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE;
 
-CREATE VIEW menor_15 as SELECT MIN(valorTemp) AS menorTemp15min
-FROM registroSensor
-WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE;
+CREATE VIEW media_15 AS 
+SELECT 
+    s.numeroSensor AS numeroSensor,
+    ROUND(AVG(r.valorTemp), 1) AS media15min
+FROM registroSensor r
+JOIN sensores s 
+  ON r.fkSensores = s.idSensores
+WHERE r.dtTemp >= NOW() - INTERVAL 15 MINUTE
+GROUP BY s.numeroSensor;
 
-CREATE VIEW maior_15 as SELECT MAX(valorTemp) AS maiorTemp15min
-FROM registroSensor
-WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE;
 
-CREATE VIEW total_15 as SELECT COUNT(*) AS totalAlertas15min
-FROM registroSensor
-WHERE (valorTemp < 30 OR valorTemp > 39)
-AND dtTemp >= NOW() - INTERVAL 15 MINUTE;
+CREATE VIEW menor_15 AS 
+SELECT 
+    s.numeroSensor AS numeroSensor,
+    MIN(r.valorTemp) AS menorTemp15min
+FROM registroSensor r
+JOIN sensores s 
+  ON r.fkSensores = s.idSensores
+WHERE r.dtTemp >= NOW() - INTERVAL 15 MINUTE
+GROUP BY s.numeroSensor;
 
-CREATE VIEW minuto_minuto as SELECT 
-    DATE_FORMAT(dtTemp, '%H:%i') AS minuto,
-    ROUND(AVG(valorTemp), 1) AS temperaturaMedia
-FROM registroSensor
-WHERE dtTemp >= NOW() - INTERVAL 15 MINUTE
-GROUP BY DATE_FORMAT(dtTemp, '%Y-%m-%d %H:%i')
-ORDER BY MIN(dtTemp);
+
+CREATE VIEW maior_15 AS 
+SELECT 
+    s.numeroSensor AS numeroSensor,
+    MAX(r.valorTemp) AS maiorTemp15min
+FROM registroSensor r
+JOIN sensores s 
+  ON r.fkSensores = s.idSensores
+WHERE r.dtTemp >= NOW() - INTERVAL 15 MINUTE
+GROUP BY s.numeroSensor;
+
+
+CREATE VIEW total_15 as SELECT 
+    s.numeroSensor AS numeroSensor,
+    COUNT(*) AS totalAlertas15min
+FROM registroSensor r
+JOIN sensores s 
+  ON r.fkSensores = s.idSensores
+WHERE (r.valorTemp < 30 OR r.valorTemp > 39)
+  AND r.dtTemp >= NOW() - INTERVAL 15 MINUTE
+GROUP BY s.numeroSensor;
+
+CREATE VIEW minuto_minuto AS
+SELECT 
+    s.numeroSensor AS numeroSensor,
+    DATE_FORMAT(r.dtTemp, '%H:%i') AS minuto,
+    ROUND(AVG(r.valorTemp), 1) AS temperaturaMedia
+FROM registroSensor r
+JOIN sensores s 
+  ON r.fkSensores = s.idSensores
+WHERE r.dtTemp >= NOW() - INTERVAL 15 MINUTE
+GROUP BY 
+    s.numeroSensor,
+    DATE_FORMAT(r.dtTemp, '%Y-%m-%d %H:%i');
