@@ -31,8 +31,8 @@
         <div class="campos">
           <div class="dados">
             <div class="caixa_input">
-              <h3>Usuário:</h3>
-              <input type="text" placeholder="Ex: beetech@sptech.school" id="input_usuario" />
+              <h3>Email:</h3>
+              <input type="text" placeholder="Ex: beetech@sptech.school" id="input_email" />
             </div>
 
             <div class="caixaInput">
@@ -42,7 +42,7 @@
           </div>
         </div>
         <div class="div_button">
-          <button onclick="logar()">Logar</button>
+          <button onclick="entrar()">Logar</button>
           <p id="div_mensagem"></p>
           <a href="tela-de-cadastro.html"><label for="">Cadastro</label></a>
         </div>
@@ -85,5 +85,69 @@
     } else {
       div_mensagem.innerHTML = `<b style="color:red">Login bloqueado!</b>`;
     }
+  }
+    function entrar() {
+    var emailVar = input_email.value;
+    var senhaVar = input_senha.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      // p_mensagemErro.style.display = "block";
+      // p_mensagemErro.innerHTML =
+      //   "(Mensagem de erro para todos os campos em branco)";
+      return false;
+    } else {
+      // setInterval(sumirMensagem, 5000);  
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!");
+
+        if (resposta.ok) {
+          console.log(resposta);
+
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.ID_USUARIO = json.idUsuario;
+            sessionStorage.NIVEL_USUARIO = json.nivelUser;
+            if(sessionStorage.NIVEL_USUARIO == 'PDR'){
+              setTimeout(function () {
+              window.location = "./dashboardGeral.html";
+            }, 1000); // apenas para exibir o loading
+            }else{
+                setTimeout(function () {
+              window.location = "./index-bob.html";
+            }, 1000);
+            }
+            
+          });
+        } else {
+          console.log("Houve um erro ao tentar realizar o login!");
+
+          resposta.text().then((texto) => {
+            console.error(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
   }
 </script>

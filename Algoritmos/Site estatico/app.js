@@ -35,6 +35,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 // var empresasRouter = require("./src/routes/empresas");
 
 var dashboardGeralRouter = require("./src/routes/dashboardGeral")
+var dashboardColmeia1Router = require("./src/routes/dashboardColmeia1")
 
 // configurando o servidor para receber requisições JSON
 app.use(express.json());
@@ -53,6 +54,7 @@ app.use("/usuarios", usuarioRouter);
 // app.use("/aquarios", aquariosRouter);
 // app.use("/empresas", empresasRouter);
 app.use('/dashboardGeral', dashboardGeralRouter)
+app.use('/dashboardColmeia1', dashboardColmeia1Router)
 
 
 app.listen(PORTA_APP, function () {

@@ -33,45 +33,45 @@
                         <div class="ladoEsquerdo">
                             <div class="caixaInput">
                                 <p class="cabecalho">Nome:</p>
-                                <input type="text" placeholder="Ex: Bee" id="input_nome" oninput="cadastrar()" />
+                                <input type="text" placeholder="Ex: Bee" id="input_nome"  />
                                 <p id="erro_nome"></p>
                             </div>
                             <div class="caixaInput">
                                 <p class="cabecalho">E-mail:</p>
                                 <input type="text" placeholder="Ex: beetech@sptech.school" id="input_email"
-                                    oninput="cadastrarEmail()" />
+il()" />
                                 <p id="erro_email"></p>
                             </div>
                             <!-- <div class="caixaInput">
                         <p class="cabecalho">Data de nascimento:</p>
-                        <input type="text" placeholder="Ex: 21/01/2007" id="input_nascimento" oninput="cadastrarNascimento()" />
+                        <input type="text" placeholder="Ex: 21/01/2007" id="input_nascimentocimento()" />
                         <p id="erro_nascimento"></p>
                     </div> -->
                             <div class="caixaInput">
                                 <p class="cabecalho">Confirmar senha:</p>
                                 <input type="password" placeholder="Ex: Beetech#2025" id="input_confirmarsenha"
-                                    oninput="cadastrar()" />
+                                     />
                                 <p id="erro_confirmarsenha"></p>
                             </div>
                         </div>
                         <div class="ladoDireito">
                             <div class="caixaInput">
                                 <p class="cabecalho">CPF:</p>
-                                <input type="number" placeholder="Ex: Tech" id="input_cpf" oninput="cadastrar()" />
+                                <input type="text" placeholder="999.999.999-99" id="input_cpf"  maxlength="14" />
                                 <p id="erro_sobrenome"></p>
                             </div>
 
 
                             <!-- <div class="caixaInput">
                         <p class="cabecalho">Telefone:</p>
-                        <input type="text" placeholder="Ex: 1191234123" id="input_telefone" oninput="cadastrarTelefone()" />
+                        <input type="text" placeholder="Ex: 1191234123" id="input_telefoneefone()" />
                         <p id="erro_telefone"></p>
                     </div> -->
 
                             <div class="caixaInput">
                                 <p class="cabecalho">Senha:</p>
                                 <input type="password" placeholder="Ex: Beetech#2025" id="input_senha"
-                                    oninput="cadastrar()" />
+                                     />
                                 <p id="erro_senha1"></p>
                                 <p id="erro_senha2"></p>
                                 <p id="erro_senha3"></p>
@@ -100,76 +100,66 @@
 
     let listaUsuarioCadastrado = [];
 
-    function cadastrar() {
-        // aguardar();
+function cadastrar() {
 
+    var nomeVar = input_nome.value;
+    var emailVar = input_email.value;
+    var senhaVar = input_senha.value;
+    var cpfVar = input_cpf.value.replaceAll('-','').replaceAll('.','').trim();
+    var confirmarsenhaVar = input_confirmarsenha.value;
 
-        var nomeVar = input_nome.value;
-        var sobrenomeVar = input_sobrenome.value;
-        var emailVar = input_email.value;
-        var senhaVar = input_senha.value;
-        var cpfVar = input_cpf.value;
-        var confirmarsenhaVar = input_confirmarsenha.value;
-
-        if(senhaVar != confirmarsenhaVar ){
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para senhas diferentes)";
-        }else {
-            
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            cpfVar == ""
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
-        }
-
-        fetch("/usuario/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-
-
-                nomeServer: nomeVar,
-                sobrenomeServer: sobrenomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar
-
-            }),
-        })
-            // colocar a minha div de erro
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                    setTimeout(() => {
-                        window.location = "../public/login.html";
-                    }, "2000");
-
-
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                ;
-            });
-
-        return false;
+    if(senhaVar != confirmarsenhaVar ){
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "As senhas devem ser iguais!";
+        return;
     }
-        }
 
+    if (
+        nomeVar == "" ||
+        emailVar == "" ||
+        senhaVar == "" ||
+        cpfVar == ""
+    ) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "Preencha todos os campos!";
+        return;
+    }
+
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeServer: nomeVar,
+            emailServer: emailVar,
+            senhaServer: senhaVar,
+            cpfServer:cpfVar
+        }),
+    })
+    .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            // cardErro.style.display = "block";
+            // mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando...";
+
+            setTimeout(() => {
+                window.location = "/login.html";
+            }, 2000);
+
+        } else {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML = "Erro ao cadastrar, tente novamente!";
+        }
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        // cardErro.style.display = "block";
+        // mensagem_erro.innerHTML = "Erro inesperado!";
+    });
+
+    return false;
+}
 
 </script>

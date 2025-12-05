@@ -46,32 +46,32 @@
         <div class="container-dados">
             <h1>Registros:</h1>
             <div class="container-registros">
-                <div class="registro-1">
+                <div id="div_registro1" class="registro-1">
                     <p>Temperatura atual: <br>
-                    <h2>32°C</h2>
+                    <h2 id="h2_registro1">32°C</h2>
                     </p>
                 </div>
 
-                <div class="registro-2">
+                <div  id="div_registro2"class="registro-2">
                     <p>Média dos últimos 15 minutos:<br>
-                    <h2>34°C</h2>
+                    <h2 id="h2_registro2">34°C</h2>
                     </p>
                 </div>
 
-                <div class="registro-3">
-                    <p>Menor temperatura registrada no dia: <br>
-                    <h2>32°C</h2>
+                <div id="div_registro3"class="registro-3">
+                    <p>Menor temperatura dos últimos 15 minutos: <br>
+                    <h2 id="h2_registro3">32°C</h2>
                     </p>
                 </div>
 
 
-                <div class="registro-4">
-                    <p>Maior temperatura registrada do dia: <br>
-                    <h2>37°C</h2>
+                <div id="div_registro4"class="registro-4">
+                    <p>Maior temperatura dos últimos 15 minutos: <br>
+                    <h2 id="h2_registro4">37°C</h2>
                     </p>
                 </div>
 
-                <div class="registro-5  ">
+                <div id="div_registro5"class="registro-5  ">
                     <p>Total de alertas emitidos no dia: <br>
                     <h2>1</h2>
                     </p>
@@ -101,16 +101,49 @@
     const ctx = document.getElementById('grafico-1');
     const ctx2 = document.getElementById('grafico-2');
 
-    new Chart(ctx, {
+
+var graficoLinha1 = null; 
+var listaMinutos = [];
+var listaTemperaturas = [];
+
+function buscarDadosGraficoColmeia1() {
+    fetch('/dashboardColmeia1/grafico15colmeia1').then(function(response){
+        if (response.ok) {
+            response.json().then(function(resposta){
+
+                listaMinutos = [];
+                listaTemperaturas = [];
+
+                for (var i = 0; i < resposta.length; i++) {
+                    listaMinutos.push(resposta[i].minuto);
+                    listaTemperaturas.push(resposta[i].temperaturaMedia);
+                }
+
+                plotarGraficoColmeia1();
+                
+               
+
+            });
+        }
+    });
+}
+
+function plotarGraficoColmeia1() {
+
+    if (graficoLinha1 != null) {
+        graficoLinha1.destroy();
+    }
+
+
+    graficoLinha1 = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['19:01:00', '19:02:00', '19:03:00', '19:04:0', '19:05:00', '19:06:00', '19:07:00', '19:08:00', '19:09:00', '19:10:00','19:11:00','19:12:00','19:13:00','19:14:00','19:15:00'],
+            labels: listaMinutos,
             datasets: [{
-                label: 'temperatura',
-                data: [35,33,34,35.2,34.3,34.9,34.2,34,35,34, 34, 33, 32, 31.2, 32,32],
+                label: 'Temperatura (°C)',
+                data: listaTemperaturas,
                 borderWidth: 2,
                 borderColor: 'black',
-                color: '#e74c3c',
                 backgroundColor: '#B22222'
             }]
         },
@@ -122,6 +155,10 @@
             }
         }
     });
+     setTimeout(function(){
+                    buscarDadosGraficoColmeia1();
+                }, 10000);
+}
 
 
     new Chart(ctx2, {
@@ -148,4 +185,100 @@
             }}
         }
     });
+var registro1 = document.getElementById('div_registro1')
+var registro2 = document.getElementById('div_registro2')
+var registro3 = document.getElementById('div_registro3')
+var registro4 = document.getElementById('div_registro4')
+var registro5 = document.getElementById('div_registro5')
+
+
+
+
+
+
+function trocarBackgroundImg(tempAtual,registroId){
+             if(tempAtual>39 || tempAtual<30){
+      registroId.style.backgroundImage = 'url(assets/images/hexagono-vermelho2.svg)'
+    }else if(tempAtual<33 || tempAtual>36){
+      registroId.style.backgroundImage = 'url(assets/images/hexagono-amarelo2.svg)'
+    }else{
+      registroId.style.backgroundImage ='url(assets/images/hexagono-verde2.svg)'
+    }
+}
+
+
+    function buscarTemperaturaColmeia1(){
+    fetch('/dashboardGeral/buscarTemperaturaAtualColmeia1').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].valorTemp)
+          h2_registro1.innerHTML  = `${resposta[0].valorTemp}ºC`
+         
+          trocarBackgroundImg(resposta[0].valorTemp,registro1)
+          
+          setTimeout(() => {
+            buscarTemperaturaColmeia1()
+          }, 1000);
+        })
+
+      }
+    })
+  }
+
+  function media15colmeia1(){
+     fetch('/dashboardColmeia1/media15colmeia1').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].temperaturaMedia)
+          h2_registro2.innerHTML  = `${resposta[0].temperaturaMedia }ºC`
+         
+          trocarBackgroundImg(resposta[0].temperaturaMedia ,registro2)
+          
+          setTimeout(() => {
+            media15colmeia1()
+          }, 10000);
+        })
+
+      }
+    })
+  }
+    function menor15colmeia1(){
+     fetch('/dashboardColmeia1/menor15colmeia1').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].menorTemp15min)
+          h2_registro3.innerHTML  = `${resposta[0].menorTemp15min }ºC`
+         
+          trocarBackgroundImg(resposta[0].menorTemp15min ,registro3)
+          
+          setTimeout(() => {
+            menor15colmeia1()
+          }, 10000);
+        })
+
+      }
+    })
+  }
+function maior15colmeia1() {
+  fetch('/dashboardColmeia1/maior15colmeia1').then(function(response){
+    if (response.ok) {
+      response.json().then(function(resposta){
+
+        console.log(resposta[0].maiorTemp15min);
+        h2_registro4.innerHTML = `${resposta[0].maiorTemp15min}ºC`;
+
+        trocarBackgroundImg(resposta[0].maiorTemp15min, registro4);
+
+        setTimeout(() => {
+          maior15colmeia1();
+        }, 10000);
+      });
+    }
+  });
+}
+  buscarTemperaturaColmeia1();
+media15colmeia1();
+menor15colmeia1();
+maior15colmeia1();
+buscarDadosGraficoColmeia1()
 </script>

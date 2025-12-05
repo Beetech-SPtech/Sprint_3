@@ -46,41 +46,41 @@
         <div class="container-dados">
             <h1>Registros:</h1>
             <div class="container-registros">
-                <div class="registro-1">
+                <div id="div_registro1" class="registro-1">
                     <p>Temperatura atual: <br>
-                    <h2>40°C</h2>
+                    <h2 id="h2_registro1">32°C</h2>
                     </p>
                 </div>
 
-                <div class="registro-2">
+                <div  id="div_registro2"class="registro-2">
                     <p>Média dos últimos 15 minutos:<br>
-                    <h2>37,8ºC</h2>
+                    <h2 id="h2_registro2">34°C</h2>
                     </p>
                 </div>
 
-                <div class="registro-3">
-                    <p>Menor temperatura registrada do dia: <br>
-                    <h2>35.7°C</h2>
+                <div id="div_registro3"class="registro-3">
+                    <p>Menor temperatura dos últimos 15 minutos: <br>
+                    <h2 id="h2_registro3">32°C</h2>
                     </p>
                 </div>
 
 
-                <div class="registro-4">
-                    <p>Maior temperatura registrada do dia: <br>
-                    <h2>41°C</h2> <br>
+                <div id="div_registro4"class="registro-4">
+                    <p>Maior temperatura dos últimos 15 minutos: <br>
+                    <h2 id="h2_registro4">37°C</h2>
                     </p>
                 </div>
 
-                <div class="registro-5  ">
+                <div id="div_registro5"class="registro-5  ">
                     <p>Total de alertas emitidos no dia: <br>
-                    <h2>3</h2>
+                    <h2>1</h2>
                     </p>
                 </div>
             </div>
 
             <div class="graficos">
                 <div class="grafico-1">
-                    <h3>Temperatura da colmeia 2</h3>
+                    <h3>Temperatura da colmeia 1</h3>
                     <canvas id="grafico-1"></canvas>
                 </div>
                 <div class="grafico-2">
@@ -107,21 +107,17 @@
             labels: ['19:01:00', '19:02:00', '19:03:00', '19:04:0', '19:05:00', '19:06:00', '19:07:00', '19:08:00', '19:09:00', '19:10:00','19:11:00','19:12:00','19:13:00','19:14:00','19:15:00'],
             datasets: [{
                 label: 'temperatura',
-                data: [35.8,36,36,36,37,37,38,38,38,39, 38.9, 39, 39.2, 39.5, 40],
+                data: [35,33,34,35.2,34.3,34.9,34.2,34,35,34, 34, 33, 32, 31.2, 32,32],
                 borderWidth: 2,
                 borderColor: 'black',
-                color: '#e74c3c'
+                color: '#e74c3c',
+                backgroundColor: '#B22222'
             }]
         },
         options: {
             scales: {
                 y: {
-                    beginAtZero: false,
-                    
-                    title: {
-                    display: true,
-                    text: 'Temperatura em ºC' 
-                }
+                    beginAtZero: false
                 }
             }
         }
@@ -131,25 +127,129 @@
     new Chart(ctx2, {
         type: 'bar',
         data: {
-            
-            labels: ['Segunda', 'Terça', 'Quarta','Quinta','Sexta','Sabado','Domingo'],
+ labels: ['Segunda', 'Terça', 'Quarta','Quinta','Sexta','Sabado','Domingo'],
             datasets: [{
                 label: 'Quantidade de alertas.',
-                data: [1, 2, 1,0,3,0,0],
-                borderWidth: 2,
+                data: [0, 1, 2,2,1,0,0],
+                borderWidth: 1,
+                color: '#e74c3c',
                 backgroundColor: '#B22222',
-                borderColor: 'black'
+                borderColor:'black'
+
             }]
         },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true,
+                   beginAtZero: true,
                     ticks: {
                         precision:0
                     }
-                }
-            }
+            }}
         }
     });
+var registro1 = document.getElementById('div_registro1')
+var registro2 = document.getElementById('div_registro2')
+var registro3 = document.getElementById('div_registro3')
+var registro4 = document.getElementById('div_registro4')
+var registro5 = document.getElementById('div_registro5')
+
+
+
+
+
+
+function trocarBackgroundImg(tempAtual,registroId){
+             if(tempAtual>39 || tempAtual<30){
+      registroId.style.backgroundImage = 'url(assets/images/hexagono-vermelho2.svg)'
+    }else if(tempAtual<33 || tempAtual>36){
+      registroId.style.backgroundImage = 'url(assets/images/hexagono-amarelo2.svg)'
+    }else{
+      registroId.style.backgroundImage ='url(assets/images/hexagono-verde2.svg)'
+    }
+}
+
+
+function buscarTemperaturaColmeia2(){
+    fetch('/dashboardGeral/buscarTemperaturaAtualColmeia2').then(function(response){
+        if(response.ok){
+            response.json().then(function(resposta){
+                
+                console.log(resposta[0].valorTemp);
+                h2_registro1.innerHTML = `${resposta[0].valorTemp}ºC`;
+
+                trocarBackgroundImg(resposta[0].valorTemp, registro1);
+
+                setTimeout(function(){
+                    buscarTemperaturaColmeia2();
+                }, 1000);
+
+            });
+        }
+    });
+}
+
+function media15colmeia2(){
+    fetch('/dashboardColmeia2/media15colmeia2').then(function(response){
+        if(response.ok){
+            response.json().then(function(resposta){
+
+                console.log(resposta[0].temperaturaMedia);
+                h2_registro2.innerHTML = `${resposta[0].temperaturaMedia}ºC`;
+
+                trocarBackgroundImg(resposta[0].temperaturaMedia, registro2);
+
+                setTimeout(function(){
+                    media15colmeia2();
+                }, 10000);
+
+            });
+        }
+    });
+}
+
+function menor15colmeia2(){
+    fetch('/dashboardColmeia2/menor15colmeia2').then(function(response){
+        if(response.ok){
+            response.json().then(function(resposta){
+                
+                console.log(resposta[0].menorTemp15min);
+                h2_registro3.innerHTML = `${resposta[0].menorTemp15min}ºC`;
+
+                trocarBackgroundImg(resposta[0].menorTemp15min, registro3);
+
+                setTimeout(function(){
+                    menor15colmeia2();
+                }, 10000);
+
+            });
+        }
+    });
+}
+
+function maior15colmeia2(){
+    fetch('/dashboardColmeia2/maior15colmeia2').then(function(response){
+        if(response.ok){
+            response.json().then(function(resposta){
+
+                console.log(resposta[0].maiorTemp15min);
+                h2_registro4.innerHTML = `${resposta[0].maiorTemp15min}ºC`;
+
+                trocarBackgroundImg(resposta[0].maiorTemp15min, registro4);
+
+                setTimeout(function(){
+                    maior15colmeia2();
+                }, 10000);
+
+            });
+        }
+    });
+}
+
+
+buscarTemperaturaColmeia2();
+media15colmeia2();
+menor15colmeia2();
+maior15colmeia2();
+
 </script>

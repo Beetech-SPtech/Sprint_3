@@ -9,11 +9,11 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="buscarTemperaturaColmeia2()">
+<body onload="funcoesOnload()">
   <div class="ajuda"><a href="">Precisa de ajuda?</a><i class="fas fa-headset"></i></div>
   <div class="left-bar">
     <img src="assets/images/beetech-logo.png" alt="" />
-    <p><b>Bem vindo(a) Claudio!</b></p>
+    <p id="p_bemVindo"><b>Bem vindo(a) Claudio!</b></p>
 
     <a href="login.html"><button>Sair</button></a>
   </div>
@@ -46,13 +46,14 @@
     <div class="container-dados">
       <div class="container-colmeias">
         <div class="linha-1" id="linha1">
-          <a href="dashboardColmeia-2.html">
-            <div class="colmeia2" id="colmeia2">
+          <a href="dashboardColmeia-1.html">
+
+            <div class="colmeia" id="colmeia1">
               <img src="assets/images/apiario.png" alt="" />
 
             <div class="info-colmeia">
-                <p>Colmeia 2</p> <br />
-                <p id="p_tempColmeia2">34°C</p> <br />
+                <p>Colmeia 1</p> 
+                <p id="p_tempColmeia1">null</p>
                 <p>Ideal</p>
               </div>
 
@@ -62,39 +63,41 @@
             </div>
           </a>
           <a href="dashboardColmeia-1.html">
-            <div class="colmeia1" id="colmeia1">
+
+
+            <div class="colmeia" id="colmeia2">
               <img src="assets/images/apiario.png" alt="" />
 
-              <p>
-                Colmeia 1 <br />
-                32°C <br />
-                Preocupante
-              </p>
+            <div class="info-colmeia">
+                <p>Colmeia 2</p> 
+                <p id="p_tempColmeia2">null</p> 
+                <p>Ideal</p>
+              </div>
             </div>
           </a>
 
         </div>
         <div class="linha-2">
           <a href="">
-            <div class="colmeia3" id="colmeia3">
+            <div class="colmeia" id="colmeia3">
               <img src="assets/images/apiario.png" alt="" />
 
               <div class="info-colmeia">
-                <p>Colmeia 3</p> <br />
-                <p>34°C</p> <br />
+                <p>Colmeia 3</p> 
+                <p id="p_tempColmeia3">null</p> 
                 <p>Ideal</p>
               </div>
             </div>
           </a>
           <a href="">
-            <div class="colmeia4" id="colmeia4">
+            <div class="colmeia" id="colmeia4">
               <img src="assets/images/apiario.png" alt="" />
 
-              <p>
-                Colmeia 4 <br />
-                34.3°C <br />
-                Ideal
-              </p>
+              <div class="info-colmeia">
+                <p>Colmeia 4</p> 
+                <p id="p_tempColmeia4">null</p> 
+                <p>Ideal</p>
+                </div>
             </div>
           </a>
         </div>
@@ -114,13 +117,13 @@
               <h1>4</h1>
             </button> 
             <button id="kpi2" onclick="kpi2()">Colmeias com temperatura de ALERTA: <br>
-              <h1 style="color: red;">1</h1>
+              <h1 id="h1_kpiAlerta" style="color: red;">null</h1>
             </button> 
             <button id="kpi3" onclick="kpi3()">Colmeias com temperatura PROCUPANTE: <br>
-              <h1 style="color: yellow;">1</h1>
+              <h1  id="h1_kpiPreocupante"style="color: yellow;">null</h1>
             </button>
             <button id="kpi4" onclick="kpi4()">Colmeias com temperatura IDEAL: <br>
-              <h1 style="color: green;">2</h1>
+              <h1  id="h1_kpiIdeal"style="color: green;">null</h1>
             </button>
           </div>
         </div>
@@ -135,6 +138,7 @@
 
 </html>
 <script>
+  p_bemVindo.innerHTML = `Bem vindo(a), ${sessionStorage.NOME_USUARIO}`
   const ctx = document.getElementById('grafico-1');
   const ctx2 = document.getElementById('grafico-2');
 
@@ -183,39 +187,90 @@
   // });
 
 
-  function kpi1() {
+  // function kpi1() {
 
-    linha1.style.display = 'flex'
-    colmeia1.style.display = 'flex'
-    colmeia2.style.display = 'flex'
-    colmeia3.style.display = 'flex'
-    colmeia4.style.display = 'flex'
+  //   linha1.style.display = 'flex'
+  //   colmeia1.style.display = 'flex'
+  //   colmeia2.style.display = 'flex'
+  //   colmeia3.style.display = 'flex'
+  //   colmeia4.style.display = 'flex'
+
+
+  // }
+  // function kpi2() {
+  //   linha1.style.display = 'flex'
+  //   colmeia1.style.display = 'none'
+  //   colmeia2.style.display = 'flex'
+  //   colmeia3.style.display = 'none'
+  //   colmeia4.style.display = 'none'
+  // }
+  // function kpi3() {
+  //   linha1.style.display = 'flex'
+  //   colmeia1.style.display = 'flex'
+  //   colmeia2.style.display = 'none'
+  //   colmeia3.style.display = 'none'
+  //   colmeia4.style.display = 'none'
+  // }
+  // function kpi4() {
+  //   linha1.style.display = 'none'
+  //   colmeia1.style.display = 'none'
+  //   colmeia2.style.display = 'none'
+  //   colmeia3.style.display = 'flex'
+  //   colmeia4.style.display = 'flex'
+  // }
+
+
+var listaTemperaturas = [0,0,0]
+var div_colmeia1 = document.getElementById('colmeia1')
+var div_colmeia2 = document.getElementById('colmeia2')
+var div_colmeia3 = document.getElementById('colmeia3')
+var div_colmeia4 = document.getElementById('colmeia4')
+function trocarBackgroundImg(tempAtual,colmeiaId){
+             if(tempAtual>39 || tempAtual<30){
+      colmeiaId.style.backgroundImage = 'url(assets/images/hexagono-vermelho.svg)'
+    }else if(tempAtual<33 || tempAtual>36){
+      colmeiaId.style.backgroundImage = 'url(assets/images/hexagono-amarelo.svg)'
+    }else{
+      colmeiaId.style.backgroundImage ='url(assets/images/hexagono-verde.svg)'
+    }
+}
+
+function checarKpis (){
+  qtdIdeal = 0
+  qtdPreocupante = 0
+  qtdAlerta = 0
+  for(var i = 0 ; i <listaTemperaturas.length;i++){
+    if(listaTemperaturas[i]>39 || listaTemperaturas[i]<30){
+      qtdAlerta++
+    }else if(listaTemperaturas[i]<33 || listaTemperaturas[i]>36){
+      qtdPreocupante++
+    }else{
+      qtdIdeal++
+    }
 
 
   }
-  function kpi2() {
-    linha1.style.display = 'flex'
-    colmeia1.style.display = 'none'
-    colmeia2.style.display = 'flex'
-    colmeia3.style.display = 'none'
-    colmeia4.style.display = 'none'
-  }
-  function kpi3() {
-    linha1.style.display = 'flex'
-    colmeia1.style.display = 'flex'
-    colmeia2.style.display = 'none'
-    colmeia3.style.display = 'none'
-    colmeia4.style.display = 'none'
-  }
-  function kpi4() {
-    linha1.style.display = 'none'
-    colmeia1.style.display = 'none'
-    colmeia2.style.display = 'none'
-    colmeia3.style.display = 'flex'
-    colmeia4.style.display = 'flex'
-  }
+  h1_kpiAlerta.innerHTML = qtdAlerta    
+h1_kpiPreocupante.innerHTML = qtdPreocupante
+h1_kpiIdeal.innerHTML = qtdIdeal
+}
+   function buscarTemperaturaColmeia1(){
+    fetch('/dashboardGeral/buscarTemperaturaAtualColmeia1').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].valorTemp)
+          p_tempColmeia1.innerHTML  = `${resposta[0].valorTemp}ºC`
+          listaTemperaturas[0] = resposta[0].valorTemp
+          trocarBackgroundImg(resposta[0].valorTemp,div_colmeia1)
+          checarKpis ()
+          setTimeout(() => {
+            buscarTemperaturaColmeia1()
+          }, 1000);
+        })
 
-
+      }
+    })
+  }
 
   function buscarTemperaturaColmeia2(){
     fetch('/dashboardGeral/buscarTemperaturaAtualColmeia2').then(function(response){
@@ -223,6 +278,9 @@
         response.json().then(function(resposta){
           console.log(resposta[0].valorTemp)
           p_tempColmeia2.innerHTML  = `${resposta[0].valorTemp}ºC`
+          listaTemperaturas[1] = resposta[0].valorTemp
+          checarKpis ()
+          trocarBackgroundImg(resposta[0].valorTemp,div_colmeia2)
           setTimeout(() => {
             buscarTemperaturaColmeia2()
           }, 1000);
@@ -230,5 +288,49 @@
 
       }
     })
+  }
+
+     function buscarTemperaturaColmeia3(){
+    fetch('/dashboardGeral/buscarTemperaturaAtualColmeia3').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].valorTemp)
+          p_tempColmeia3.innerHTML  = `${resposta[0].valorTemp}ºC`
+          listaTemperaturas[2] = resposta[0].valorTemp
+          checarKpis ()
+          trocarBackgroundImg(resposta[0].valorTemp,div_colmeia3)
+          setTimeout(() => {
+            buscarTemperaturaColmeia3()
+          }, 1000);
+        })
+
+      }
+    })
+  }
+
+     function buscarTemperaturaColmeia4(){
+    fetch('/dashboardGeral/buscarTemperaturaAtualColmeia4').then(function(response){
+      if(response.ok){
+        response.json().then(function(resposta){
+          console.log(resposta[0].valorTemp)
+          p_tempColmeia1.innerHTML  = `${resposta[0].valorTemp}ºC`
+          listaTemperaturas[3] = resposta[0].valorTemp
+          trocarBackgroundImg(resposta[0].valorTemp,div_colmeia4)
+          setTimeout(() => {
+            buscarTemperaturaColmeia4()
+          }, 1000);
+        })
+
+      }
+    })
+  }
+
+
+  function funcoesOnload (){
+    buscarTemperaturaColmeia1()
+    buscarTemperaturaColmeia2()
+    buscarTemperaturaColmeia3()
+    // buscarTemperaturaColmeia4()
+
   }
 </script>
