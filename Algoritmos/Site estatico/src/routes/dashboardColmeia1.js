@@ -12,14 +12,12 @@ router.get('/menor15colmeia1', function(req, res){
     dashboardColmeia1Controller.menor15colmeia1(req, res);
 });
 
-
-
 router.get('/maior15colmeia1', function(req, res){
     dashboardColmeia1Controller.maior15colmeia1(req, res);
 });
+
 router.get('/grafico15colmeia1', function(req, res){
     dashboardColmeia1Controller.grafico15colmeia1(req, res);
 });
-
 
 module.exports = router;

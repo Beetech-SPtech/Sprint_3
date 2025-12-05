@@ -24,9 +24,9 @@ function grafico15colmeia1() {
         FROM grafico_15min
         WHERE colmeia = 1;
     `;
+    console.log("Executando SQL: ", instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 
 module.exports = {
     media15colmeia1,

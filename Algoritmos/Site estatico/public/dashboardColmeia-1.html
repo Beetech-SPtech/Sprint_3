@@ -9,8 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
-    <div class="ajuda"><a href="">Precisa de ajuda?</a><i class="fas fa-headset"></i></div>
+<body onload="buscarDadosGraficoColmeia1()">
+    <div class="ajuda"><a href="https://beetechsp.atlassian.net/servicedesk/customer/portal/2/user/login?destination=portal%2F2">Precisa de ajuda?</a><i class="fas fa-headset"></i></div>
     <div class="left-bar">
         <img src="assets/images/beetech-logo.png" alt="" />
 
@@ -111,29 +111,31 @@ function buscarDadosGraficoColmeia1() {
         if (response.ok) {
             response.json().then(function(resposta){
 
+                console.log("grafico: ", resposta);
+
+               
                 listaMinutos = [];
                 listaTemperaturas = [];
 
+                
                 for (var i = 0; i < resposta.length; i++) {
                     listaMinutos.push(resposta[i].minuto);
-                    listaTemperaturas.push(resposta[i].temperaturaMedia);
+                    listaTemperaturas.push(parseFloat(resposta[i].temperatura));
                 }
 
-                plotarGraficoColmeia1();
-                
-               
+                plotarGraficoColmeia1(listaMinutos, listaTemperaturas);
 
             });
         }
     });
 }
 
-function plotarGraficoColmeia1() {
+
+function plotarGraficoColmeia1(listaMinutos, listaTemperaturas) {
 
     if (graficoLinha1 != null) {
         graficoLinha1.destroy();
     }
-
 
     graficoLinha1 = new Chart(ctx, {
         type: 'line',
@@ -148,17 +150,14 @@ function plotarGraficoColmeia1() {
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: false
-                }
-            }
+            scales: { y: { beginAtZero: false } }
         }
     });
-     setTimeout(function(){
-                    buscarDadosGraficoColmeia1();
-                }, 10000);
+
+    // Atualiza automaticamente
+    setTimeout(() => buscarDadosGraficoColmeia1(), 1000);
 }
+
 
 
     new Chart(ctx2, {
@@ -190,11 +189,6 @@ var registro2 = document.getElementById('div_registro2')
 var registro3 = document.getElementById('div_registro3')
 var registro4 = document.getElementById('div_registro4')
 var registro5 = document.getElementById('div_registro5')
-
-
-
-
-
 
 function trocarBackgroundImg(tempAtual,registroId){
              if(tempAtual>39 || tempAtual<30){
@@ -280,5 +274,5 @@ function maior15colmeia1() {
 media15colmeia1();
 menor15colmeia1();
 maior15colmeia1();
-buscarDadosGraficoColmeia1()
+buscarDadosGraficoColmeia1();
 </script>

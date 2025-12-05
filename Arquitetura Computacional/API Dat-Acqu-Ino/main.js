@@ -8,7 +8,7 @@ const SERIAL_BAUD_RATE = 9600;
 const SERVIDOR_PORTA = 3300;
 
 // habilita ou desabilita a inserção de dados no banco de dados *
-const HABILITAR_OPERACAO_INSERIR = false;
+const HABILITAR_OPERACAO_INSERIR = true;
 
 // função para comunicação serial
 const serial = async (
@@ -19,11 +19,11 @@ const serial = async (
     // conexão com o banco de dados MySQL usuario que só da insert *
     let poolBancoDados = mysql.createPool(
         {
-            host: '127.0.0.1',
+            host: 'localhost',
             user: 'beetech_insert',
             password: 'Beetech#2025',
             database: 'Beetech',
-            port: 3307
+            port: 3306
         }
     ).promise();
 
@@ -63,6 +63,18 @@ const serial = async (
             // este insert irá inserir os dados na tabela "registroSensor"
             await poolBancoDados.execute(
                 'INSERT INTO registroSensor (valorTemp,fkSensores) VALUES (?,1)',
+                [sensorAnalogico + 12]
+            );
+            await poolBancoDados.execute(
+                'INSERT INTO registroSensor (valorTemp,fkSensores) VALUES (?,2)',
+                [sensorAnalogico + 12]
+            );
+            await poolBancoDados.execute(
+                'INSERT INTO registroSensor (valorTemp,fkSensores) VALUES (?,3)',
+                [sensorAnalogico + 12]
+            );
+            await poolBancoDados.execute(
+                'INSERT INTO registroSensor (valorTemp,fkSensores) VALUES (?,4)',
                 [sensorAnalogico + 12]
             );
             console.log("valores inseridos no banco: ", sensorAnalogico );

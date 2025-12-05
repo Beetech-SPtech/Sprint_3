@@ -36,13 +36,14 @@ function grafico15colmeia1(req, res) {
         })
         .catch(function(erro){
             res.status(500).json(erro.sqlMessage);
+            console.log(erro.sqlMessage)
         });
 }
 
 
 module.exports = {
-    grafico15colmeia1,
     media15colmeia1,
     menor15colmeia1,
-    maior15colmeia1
+    maior15colmeia1,
+    grafico15colmeia1
 };

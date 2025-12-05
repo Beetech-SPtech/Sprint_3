@@ -25,8 +25,6 @@ var app = express();
 // configurando o gemini (IA)
 const chatIA = new GoogleGenAI({ apiKey: process.env.MINHA_CHAVE });
 
-
-
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 // var avisosRouter = require("./src/routes/avisos");
@@ -36,6 +34,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 
 var dashboardGeralRouter = require("./src/routes/dashboardGeral")
 var dashboardColmeia1Router = require("./src/routes/dashboardColmeia1")
+var dashboardColmeia2Router = require("./src/routes/dashboardColmeia2")
 
 // configurando o servidor para receber requisições JSON
 app.use(express.json());
@@ -55,6 +54,7 @@ app.use("/usuarios", usuarioRouter);
 // app.use("/empresas", empresasRouter);
 app.use('/dashboardGeral', dashboardGeralRouter)
 app.use('/dashboardColmeia1', dashboardColmeia1Router)
+app.use("/dashboardColmeia2", dashboardColmeia2Router)
 
 
 app.listen(PORTA_APP, function () {

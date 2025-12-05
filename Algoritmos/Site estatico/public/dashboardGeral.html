@@ -10,7 +10,7 @@
 </head>
 
 <body onload="funcoesOnload()">
-  <div class="ajuda"><a href="">Precisa de ajuda?</a><i class="fas fa-headset"></i></div>
+  <div class="ajuda"><a href="https://beetechsp.atlassian.net/servicedesk/customer/portal/2/user/login?destination=portal%2F2">Precisa de ajuda?</a><i class="fas fa-headset"></i></div>
   <div class="left-bar">
     <img src="assets/images/beetech-logo.png" alt="" />
     <p id="p_bemVindo"><b>Bem vindo(a) Claudio!</b></p>
@@ -313,7 +313,7 @@ h1_kpiIdeal.innerHTML = qtdIdeal
       if(response.ok){
         response.json().then(function(resposta){
           console.log(resposta[0].valorTemp)
-          p_tempColmeia1.innerHTML  = `${resposta[0].valorTemp}ºC`
+          p_tempColmeia4.innerHTML  = `${resposta[0].valorTemp}ºC`
           listaTemperaturas[3] = resposta[0].valorTemp
           trocarBackgroundImg(resposta[0].valorTemp,div_colmeia4)
           setTimeout(() => {
@@ -330,7 +330,7 @@ h1_kpiIdeal.innerHTML = qtdIdeal
     buscarTemperaturaColmeia1()
     buscarTemperaturaColmeia2()
     buscarTemperaturaColmeia3()
-    // buscarTemperaturaColmeia4()
+    buscarTemperaturaColmeia4()
 
   }
 </script>
